@@ -15,27 +15,6 @@ mkdir -p $INSTALL_DIR
 CACHE_DIR=$2 # the contents of CACHE_DIR are persisted between builds
 ENV_DIR=$3
 
-install_jvm() {
-  local build_dir="$1"
-  local cache_dir="$2"
-  local env_dir="$3"
-
-  echo "Install JVM"
-
-  echo "java.runtime.version=${JAVA_VERSION:-11}" > "${build_dir}/system.properties"
-
-  jvm_buildpack_dir=$(mktemp jvm_buildpack_XXXX)
-  # only the name is interesting, deleting the temp empty file
-  rm "$jvm_buildpack_dir"
-
-  JVM_BUILDPACK_URL="${JVM_BUILDPACK_URL:-https://github.com/Scalingo/buildpack-jvm-common}"
-  git clone --depth=1 "$JVM_BUILDPACK_URL" "$jvm_buildpack_dir"
-
-  "${jvm_buildpack_dir}/bin/compile" "$build_dir" "$cache_dir" "$env_dir"
-
-  rm -r "$jvm_buildpack_dir"
-}
-
 install_apt_deps() {
   local build_dir="$1"
   local cache_dir="$2"
@@ -68,7 +47,6 @@ EOF
   rm -r "$apt_deps_buildpack_dir"
 }
 
-install_jvm "$BUILD_DIR" "$CACHE_DIR" "$ENV_DIR"
 install_apt_deps "$BUILD_DIR" "$CACHE_DIR" "$ENV_DIR"
 
 # libreoffice
