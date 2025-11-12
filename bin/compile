@@ -44,16 +44,16 @@ install_apt_deps() {
   echo "Install dependencies with APT buildpack"
 
   cat >> $build_dir/Aptfile <<EOF
-libsm6
-libice6
-libxinerama1
-libdbus-glib-1-2
-libharfbuzz0b
-libharfbuzz-icu0
-libx11-xcb1
-libxcb1
-libxslt1.1
+libssl3
 libnss3
+libcups2
+libxinerama1
+libglu1-mesa
+libcairo2
+libgtk-3-0
+libdbus-glib-1-2
+libxrender1
+libxrandr2
 EOF
 
   apt_deps_buildpack_dir=$(mktemp apt_buildpack_XXXX)
