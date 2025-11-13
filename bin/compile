@@ -33,6 +33,8 @@ libgtk-3-0
 libdbus-glib-1-2
 libxrender1
 libxrandr2
+libx11-xcb1
+libxcb1 
 EOF
 
   apt_deps_buildpack_dir=$(mktemp apt_buildpack_XXXX)
